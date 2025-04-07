@@ -18,24 +18,7 @@ The compiler takes a high-level code file (like `x = 4.98\ny = SIGMOID(x)`), tok
 
 ---
 
-## 📂 Project Structure
-│
-├── main.cpp                     # Entry point for the compiler
-├── tokenizer.cpp               # Lexical analyzer (tokenizer)
-├── tokenizer.h
-├── parser.cpp                  # Parses tokens into AST
-├── parser.h
-├── ast.h                       # Abstract Syntax Tree definitions
-├── generateAssembly.cpp        # Converts AST to NASM assembly
-├── generateAssembly.h
-│
-├── input.sage                  # Source code written in custom syntax (e.g., x = SIGMOID(10))
-├── program.asm                 # Generated NASM assembly code
-├── program.obj                 # Object file from NASM
-├── program.exe                 # Final Windows executable showing MessageBox
-│
-├── README.md                   # Project documentation
----
+│ ├── main.cpp # Entry point for the compiler ├── tokenizer.cpp # Lexical analyzer (tokenizer) ├── tokenizer.h # Tokenizer header file ├── parser.cpp # Parses tokens into AST ├── parser.h # Parser header file ├── ast.h # Abstract Syntax Tree definitions ├── generateAssembly.cpp # Converts AST to NASM assembly ├── generateAssembly.h # Assembly generation header file │ ├── input.sage # Source code written in custom syntax (e.g., x = SIGMOID(10)) ├── program.asm # Generated NASM assembly code ├── program.obj # Object file from NASM ├── program.exe # Final Windows executable showing MessageBox │ ├── README.md # Project documentation
 
 ## 📄 Example Input (`input.sage`)
 
