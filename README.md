@@ -39,7 +39,7 @@ The compiler takes a high-level code file (like `x = 4.98\ny = SIGMOID(x)`), tok
 
 ## 📄 Example Input (`input.sage`)
 
-<pre style="color: white; background-color: #111; padding: 1em; border-radius: 8px;">
+
 x = 4.98
 y = SIGMOID(x)
 SIGMOID Applied: 0.9932
@@ -67,4 +67,4 @@ program.exe
 
 ➡️ You’ll see a Windows MessageBox pop up with:
 SIGMOID Applied: 0.9932
-</pre>
+
