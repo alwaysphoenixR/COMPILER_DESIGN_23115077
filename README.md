@@ -1,53 +1,183 @@
-# COMPILER_DESIGN_23115077
-custom_instruction 
-# 🧠 SIGMOID Instruction Simulation using Custom Compiler
+👤 Author: RAJVEER SINGH
+📧 Email: rajveersinghofficial.cse@gmail.com
+🎓 Roll No: 23115077
+📚 Semester: 4th
+🏫 College: NIT Raipur
+🧠 Branch: Computer Science and Engineering
 
-This project is a simulation of a custom compiler that supports a new instruction called `SIGMOID`. It demonstrates the full pipeline of compiling a custom language into x86 NASM assembly and simulating the result through Windows message boxes.
+# 🔧 Custom Compiler for SIGMOID Instruction
 
-The compiler takes a high-level code file (like `x = 4.98\ny = SIGMOID(x)`), tokenizes and parses it, and then generates NASM assembly. The `SIGMOID` instruction is simulated in the output assembly, and the result (computed in advance) is displayed in a dialog box.
+## 🚀 Project Overview
+
+This project is a fully custom-built compiler pipeline that:
+- Accepts input in a custom `.sage` language.
+- Parses and tokenizes mathematical expressions with a **custom activation function** like `SIGMOID()`.
+- Builds an Abstract Syntax Tree (AST).
+- Generates **Three Address Code (TAC)** for intermediate representation.
+- Compiles into **x86 Assembly**, then links it into a Windows `.exe`.
+- Optionally shows the result:
+  - via **Command Line**, or
+  - using a **Windows MessageBox** (GUI style)!
+
 
 ---
 
-## 🚀 Features
+## 📁 File Structure
 
-- ✅ Custom syntax support for SIGMOID function
-- ✅ Parses assignment and function expressions
-- ✅ Generates NASM x86 assembly code
-- ✅ Uses Windows API (`MessageBoxA`) for output
-- ✅ Simple and clean structure for tokenizer, parser, and codegen
+```
+.
+├── main.cpp                 # Entry point: live interpreter + full compiler
+├── tokenizer.cpp/.h        # Converts input into tokens
+├── parser.cpp/.h           # Parses tokens into AST
+├── ast.h                   # AST node definitions
+├── interpreter.cpp/.h      # Interprets expressions & calculates results
+├── tac_gen.cpp/.h          # Generates Three Address Code (TAC)
+├── generateAssembly.cpp/.h # Converts AST to NASM-style x86 Assembly
+├── input.sage              # Sample custom source code input (SIGMOID)
+├── program.asm             # Generated NASM-style Assembly code
+├── program.obj             # Assembled object file (x86)
+├── program.exe             # Final Windows executable
+├── dump.txt                # Disassembled view from objdump
+├── README.md               # You are here
+```
 
 ---
 
-│ ├── main.cpp # Entry point for the compiler ├── tokenizer.cpp # Lexical analyzer (tokenizer) ├── tokenizer.h # Tokenizer header file ├── parser.cpp # Parses tokens into AST ├── parser.h # Parser header file ├── ast.h # Abstract Syntax Tree definitions ├── generateAssembly.cpp # Converts AST to NASM assembly ├── generateAssembly.h # Assembly generation header file │ ├── input.sage # Source code written in custom syntax (e.g., x = SIGMOID(10)) ├── program.asm # Generated NASM assembly code ├── program.obj # Object file from NASM ├── program.exe # Final Windows executable showing MessageBox │ ├── README.md # Project documentation
+## 💻 How to Run
 
-## 📄 Example Input (`input.sage`)
+### ✅ 1. Write Custom Code
+
+Edit `input.sage` with your custom expression, like:
+
+```sage
+x = SIGMOID(10)
+```
+
+You can use variables and arithmetic too:
+
+```sage
+a = 4 + 6
+b = SIGMOID(a)
+```
+
+---
+
+### 🛠️ 2. Build the Compiler
+
+Compile the C++ project:
+
+```bash
+g++ main.cpp tokenizer.cpp parser.cpp interpreter.cpp tac_gen.cpp generateAssembly.cpp -o compiler
+```
+
+---
+
+### 🧪 3. Run the Compiler
+
+Choose one of two modes:
+
+#### Option A: Command Line Mode
+
+x = 5 + 7 * 8 + SIGMOID(12)
+Enter your expression (or type 'exit'):
+> x=5+7*8+SIGMOID(12)
+
+ Step 1: Token Generation
+----------------------------
+   Token: x
+   Token: =
+   Token: 5
+   Token: +
+   Token: 7
+   Token: *
+   Token: 8
+   Token: +
+   Token: SIGMOID
+   Token: (
+   Token: 12
+   Token: )
+
+ Step 2: AST Construction
+----------------------------
+ Assignment to: x
+    BinaryExpr: +
+      BinaryExpr: +
+        Number: 5
+        BinaryExpr: *
+          Number: 7
+          Number: 8
+      Function: SIGMOID
+        Number: 12
+
+ Step 3: Interpreter Evaluation
+----------------------------
+ x = 62.0000
+
+ Step 4: TAC Generation
+----------------------------
+t0 = 7 * 8  
+t1 = 5 + t0  
+t2 = SIGMOID(12)  
+t3 = t1 + t2  
+x = t3  
+
+ Step 5: Assembly Generation
+----------------------------
+ program.asm generated successfully.
 
 
-x = 4.98
-y = SIGMOID(x)
-SIGMOID Applied: 0.9932
 
 
-🛠️ How to Build & Run Everything
-# 1. Compile the custom compiler to generate NASM assembly
-g++ -o main.exe main.cpp generateAssembly.cpp parser.cpp tokenizer.cpp -std=c++11
+#### Option B: Batch Mode (input from input.sage)
 
-# 2. Run the compiler on input.sage
-main.exe
+Update `main.cpp` to read from `input.sage` instead of live input — or modify the compiler to support both modes.
 
-# ✅ This creates: program.asm
+---
 
-# 3. Assemble the generated NASM code
+### ⚙️ 4. Assemble & Link
+
+
+
+Assemble the generated `program.asm`:
+
+```bash
 nasm -f win32 program.asm -o program.obj
+```
 
-# 4. Link the object file using GoLink
-GoLink /entry _start program.obj user32.dll kernel32.dll
+Link with system libraries:
 
-# ✅ This creates: program.exe
+```bash
+GoLink program.obj user32.dll kernel32.dll
+```
 
-# 5. Run the final executable
+This creates:
+
+```bash
 program.exe
+```
 
-➡️ You’ll see a Windows MessageBox pop up with:
-SIGMOID Applied: 0.9932
+---
+
+### 🎯 5. Output Options
+
+#### ✅ Option 1: Command Line Output
+x = 62.0000
+
+
+#### ✅ Option 2: Windows MessageBox
+
+The generated `program.exe` will show a MessageBox with your result 
+
+
+## 📌 Summary Stats Example
+
+ compiler even gives a summary like this:
+
+ --- Compiler Summary Stats ---
+ Compiled in: 0.0843s  
+ Total Tokens: 13  
+ Functions Used: SIGMOID  
+ Variables Defined: x  
+
+---
 
